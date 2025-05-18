@@ -1,0 +1,18 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, 
+h2,
+div {
+    text-align: center;        
+}
+
+p {
+    text-align: center;
+}
+
+#onboarding {
+    padding: 50px;
+}
+
