@@ -3,7 +3,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="./assets/images/favicon.jpg" type="image/x-icon">
-        <link rel="stylesheet" href="styles/styles.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="js/main.js" defer></script>
         <title>MyChat</title>
     </head>
 
@@ -27,15 +28,15 @@
             <!-- Login Section -->
             <section id="login">
                 <h2>Welcome</h2>
-                <form action="./signin" method="POST">
+                <form id="loginForm">
                     <div>
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Username" required></textarea>
+                        <input type="text" id="username" name="username" placeholder="Username" required>
                     </div>
 
                     <div>
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Password" required></textarea>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
                     </div>
 
                     <div>
@@ -44,7 +45,48 @@
                 </form>
                 <div>
                     <p>
-                        <a href="">Create Account</a>
+                        <a href="#" id="show-signup">Create Account</a>
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Sign Up Section -->
+            <section id="signup" class="hidden">
+                <h2>Register</h2>
+                <form id="signupForm">
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Full Name" required>
+                    </div>
+
+                    <div>
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="Age" min="18" required>
+                    </div>
+
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Username" required>
+                    </div>
+
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    
+                    <div>
+                        <label for="confirmpassword">Confirm Password</label>
+                        <input type="password" id="confirmpassword" name="password" placeholder="Confirm Password" required>
+                    </div>
+
+                    <div>
+                        <button type="submit">Sign Up</button>
+                    </div>
+                </form>
+                <div>
+                    <p>
+                        Have an account?
+                        <a href="#" id="show-login">Log In</a>
                     </p>
                 </div>
             </section>
