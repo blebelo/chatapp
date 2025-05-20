@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My Chat App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="./assets/images/favicon.jpg" type="image/x-icon">
         <link rel="stylesheet" href="/styles/styles.css">
+        <title>MyChat</title>
     </head>
 
     <body>
-        <!-- Navigation Bar -->
+        <!-- Header Section -->
+        <video muted loop autoplay id="bgVideo">
+            <source src="https://videos.pexels.com/video-files/31948662/13612097_2560_1440_25fps.mp4" alt="Peers interacting and having a chat" type="video/mp4">
+        </video>
         <header>
             <nav>
                 <div class="logo">
@@ -18,32 +23,31 @@
         </header>
         
         <main>
-            <!-- Sign Up/In Section -->
-            <section id="onboarding"></section>
-            <h2>Sign In</h2>
-            <form action="./signin" method="POST">
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="your_username" required></textarea>
-                </div>
+            <!-- Login Section -->
+            <section id="login">
+                <h2>Welcome</h2>
+                <form action="./signin" method="POST">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Username" required></textarea>
+                    </div>
 
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="*******" required></textarea>
-                </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password" required></textarea>
+                    </div>
 
-                <div>
-                    <button type="submit">Sign In</button>
-                </div>
-
+                    <div>
+                        <button type="submit">Sign In</button>
+                    </div>
+                </form>
                 <div>
                     <p>
                         <a href="">Create Account</a>
                     </p>
                 </div>
-            
+            </section>
         </main>
-        
         <footer>
             <p>© 2024 Benny Lebelo. All rights reserved.</p>            
         </footer>
