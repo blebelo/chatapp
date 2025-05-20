@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     alert("Login successful!");
+    window.location.href = 'pages/home.html';
   }
 
 document.getElementById('show-signup').addEventListener('click', function() {
