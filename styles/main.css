@@ -25,7 +25,7 @@ padding: 4rem;
 h1 {
     overflow: hidden;
     color: #0b1e2e;
-    border-bottom: auto solid rgb(62, 105, 161);
+    /* border-bottom: auto solid rgb(62, 105, 161); */
     white-space: nowrap;
     margin: 0 auto;
     letter-spacing: 0.2rem;
@@ -153,7 +153,6 @@ background-color: rgba(0, 0, 0, 0.6);
 color: #1f4c71;
 font-weight: 200;
 padding: 1rem;
-
 }
 
 #login a,
@@ -161,7 +160,6 @@ padding: 1rem;
 color: #47a3bd;
 font-weight: 200;
 }
-
 
 
 /* Sign Up Section */

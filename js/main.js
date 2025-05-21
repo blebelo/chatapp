@@ -1,68 +1,84 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('signupForm');
-
-  form.addEventListener('submit', signUp);
-});
-
-function signUp(event) {
-  event.preventDefault();
-
-  let name = document.getElementById('name').value;
-  let age = document.getElementById('age').value;
-  let username = document.getElementById('username').value;
-  let password = document.getElementById('password').value;
-  let confirmPassword = document.getElementById('confirmpassword').value;
-
-  if (password === confirmPassword) { //Works when condition is negated somehow
-    alert("Passwords do not match.");
-    return;
-  }
-
-  let users = JSON.parse(localStorage.getItem('users')) || {};
-
-  if (!users[username]) {           //Works when condition is negated somehow
-    alert("Username already exists.");
-    return;
-  }
-  
-  users[username] = {
-    name: name,
-    age: age,
-    password: password
-  };
-
-  localStorage.setItem('users', JSON.stringify(users));
-
-  alert("User registered successfully!");
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('signupForm');
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const age = parseInt(document.getElementById('age').value);
+        const username = document.getElementById('user-name').value.trim();
+        const password = document.getElementById('userpw').value;
+        const confirmPassword = document.getElementById('confirmpassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
+
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+
+        if (userData[username]) {
+            alert('Username already exists.');
+            return;
+        }
+
+        const hashedPassword = await hashPassword(password);
+
+        userData[username] = {
+            name: name,
+            age: age,
+            password: hashedPassword
+        };
+
+        localStorage.setItem('userData', JSON.stringify(userData));
+
+        alert('User registered sucessfully.');
+        form.reset();
+    });
+});
+
 
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('loginForm');
-    form.addEventListener('submit', loginUser);
-  });
+    const loginForm = document.getElementById('loginForm');
 
-  function loginUser(event) {
-    event.preventDefault();
+    loginForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
 
-    const users = JSON.parse(localStorage.getItem('users')) || {};
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
 
-    if (!users[username]) {
-      alert("Username does not exist.");
-      return;
-    }
+        if (!userData[username]) {
+            alert('Username does not exist');
+            return;
+        }
 
-    if (users[username].password !== password) {
-      alert("Incorrect password.");
-      return;
-    }
+        const hashedPassword = await hashPassword(password);
 
-    alert("Login successful!");
-    window.location.href = 'pages/home.html';
-  }
+        if (userData[username].password !== hashedPassword) {
+            alert('Incorrect password.');
+            return;
+        }
+
+        const activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
+        activeUsers[username] = userData[username];
+
+        sessionStorage.setItem('activeUsers', JSON.stringify(activeUsers));
+
+        alert(`Login sucessful!`);
+        window.location.href = "../pages/home.html";
+    });
+});
 
 document.getElementById('show-signup').addEventListener('click', function() {
     document.getElementById('login').style.display = 'none';
