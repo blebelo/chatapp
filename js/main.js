@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem('currentUser', username);
 
         alert(`Login sucessful!`);
-        window.location.href = "../pages/home.html";
+        window.location.href = "pages/home.html";
     });
 });
 
