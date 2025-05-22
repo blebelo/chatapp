@@ -126,6 +126,16 @@ section h2 {
     font-size: 1rem;
 }
 
+/* User Section */
+#users h3 {
+    padding: 0.5rem;
+    border-bottom: 1px #0b1e2e solid;
+}
+#users li {
+    list-style: none;
+    padding: 0.2rem;
+}
+
 /* Chat Box */
 .chat{
   display: flex;

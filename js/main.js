@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         const activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
         
-        activeUsers[username] = userData[username];
+        activeUsers[username] = userData[username].name;
         localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
         sessionStorage.setItem('currentUser', username);
 
