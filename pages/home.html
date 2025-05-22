@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="../assets/images/favicon.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="../styles/home.css">
+        <script src="../js/home.js" defer></script>
+        <title>MyChat - Home</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class='logo'>
+                    <h1>MyChat</h1>
+                    <p>Connect With Friends & Family In Real Time.</p>
+                </div>
+                <div>
+                    <a id="logout" href='../index.html'>Log Out</a>
+                </div> 
+            </nav>
+        </header>
+        <main>
+            <section id="users">
+                <h2>Users</h2>
+                <div class="users">
+                    <h3>Online Users</h3>
+                        <ul id="activeUserList"></ul><br>
+                    <h3>All Users</h3>
+                        <ul id="userList"></ul>
+                </div>
+            </section>
+
+            <section id="chats">
+                <h2>Chat Room</h2>
+                <div class="chat">
+                    <div class="messages" id="chatBox"></div>
+                    <div class="input-area">
+                        <input type="text" id="messageInput" placeholder="Type a message...">
+                        <button id="sendButton">Send</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>© 2024 Benny Lebelo. All rights reserved.</p> 
+        </footer>
+    </body>
+</html>
