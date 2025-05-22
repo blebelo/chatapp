@@ -64,16 +64,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const hashedPassword = await hashPassword(password);
-
+        
         if (userData[username].password !== hashedPassword) {
             alert('Incorrect password.');
             return;
         }
-
+        const activeUser =  { [username]: userData[username] };
+        
         const activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
+        
         activeUsers[username] = userData[username];
-
-        sessionStorage.setItem('activeUsers', JSON.stringify(activeUsers));
+        localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
+        sessionStorage.setItem('currentUser', username);
 
         alert(`Login sucessful!`);
         window.location.href = "../pages/home.html";
