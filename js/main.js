@@ -1,4 +1,4 @@
-async function hashPassword(password) {
+const hashPassword =  async password => {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -7,10 +7,10 @@ async function hashPassword(password) {
     return hashHex;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded',() => {
     const form = document.getElementById('signupForm');
 
-    form.addEventListener('submit', async function (event) {
+    form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const name = document.getElementById('name').value.trim();
@@ -47,14 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
 
-    loginForm.addEventListener('submit', async function (event) {
+    loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value;
+        const password = document.getElementById('password').value.trim();
 
         const userData = JSON.parse(localStorage.getItem('userData')) || {};
 
@@ -68,9 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (userData[username].password !== hashedPassword) {
             alert('Incorrect password.');
             return;
-        }
-        const activeUser =  { [username]: userData[username] };
-        
+        }        
         const activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
         
         activeUsers[username] = userData[username].name;
@@ -82,12 +80,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.getElementById('show-signup').addEventListener('click', function() {
+document.getElementById('show-signup').addEventListener('click', () => {
     document.getElementById('login').style.display = 'none';
     document.getElementById('signup').style.display = 'flex';
   });
 
-document.getElementById('show-login').addEventListener('click', function() {
+document.getElementById('show-login').addEventListener('click', () => {
+    document.getElementById('signup').style.display = 'none';
+    document.getElementById('login').style.display = 'flex';
+  });
+
+document.getElementById('register').addEventListener('click', () => {
     document.getElementById('signup').style.display = 'none';
     document.getElementById('login').style.display = 'flex';
   });

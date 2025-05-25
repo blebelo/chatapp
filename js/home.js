@@ -1,29 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const chatBox = document.getElementById('chatBox');
-    const messageInput = document.getElementById('messageInput');
     const userList = document.getElementById('userList');
-    const userActiveList = document.getElementById('activeUserList');
+    const activeUserList = document.getElementById('activeUserList');
 
     let currentUser = JSON.stringify(sessionStorage.currentUser);
-    let chatData = JSON.parse(localStorage.getItem('chatData')) || {};
     let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
     let allUsers = JSON.parse(localStorage.getItem('userData')) || {};
 
-    if (!activeUsers[currentUser]) {
-        activeUsers[currentUser] = allUsers[currentUser];
-        localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
-    }
-
-
-    function displayAllUsers() {
-        userList.innerHTML = '';
+    displayActiveUsers = () => {
+        activeUserList.innerHTML = '';
         Object.values(activeUsers).forEach((user) => {
             let li = document.createElement('li');
-            li.textContent = user; 
+            li.textContent = user ; 
             activeUserList.appendChild(li);
         });
     }
-    function displayActiveUsers() {
+
+    displayAllUsers = () => {
         userList.innerHTML = '';
         Object.values(allUsers).forEach((user) => {
             let li = document.createElement('li');
@@ -32,11 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function logoutUser() {
+
+    logoutUser = () => {
         const currentUser = sessionStorage.getItem('currentUser');
 
         if (currentUser) {
-            let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || [];
+            let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
             delete activeUsers[currentUser];
             localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
         }
@@ -51,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    function displayMessages() {
+      displayMessages = () => {
         chatBox.innerHTML = '';
         Object.keys(chatData).forEach(msg => {
         const div = document.createElement('div');
@@ -61,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-    function sendMessage() {
+    
+    sendMessage = () => {
         const text = messageInput.value.trim();
         if (!text) return;
 
@@ -80,13 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('storage', () => {
         chatData = JSON.parse(localStorage.getItem('chatData')) || [];
         activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || [];
-        displayMessages();
+        // displayMessages();
         displayAllUsers();
         displayActiveUsers();
     });
-
-
-    displayMessages();
+    // displayMessages();
     displayAllUsers();
     displayActiveUsers();
 })

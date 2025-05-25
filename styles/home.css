@@ -55,6 +55,24 @@ a{
 header nav div{
     padding: 2rem;
 }
+header nav .settings-container{
+    display: flex;
+    align-items: center;
+    gap: 1rem
+}
+
+header nav img{
+    max-width: 3rem;
+    transition: transform 0.65s ease;
+}
+
+header nav img:hover{
+    transform: scale(1.25);
+}
+
+header nav img:hover{
+    forced-color-adjust: #3c87d7;
+}
 
 /* Body Section */
 /* body{
