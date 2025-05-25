@@ -51,6 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         changeUsername(currentUser, newUsername);
         form.reset();
-        window.location.href= './home.html'
+        window.location.href= '../home.html'
     });
 });
