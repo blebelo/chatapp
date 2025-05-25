@@ -16,7 +16,7 @@ const changeUsername = (oldName, newName) => {
         userData[newName] = userData[oldName];
         delete userData[oldName];
 
-        sessionStorage.setItem('currentUser', JSON.stringify(newUsername));
+        sessionStorage.setItem('currentUser', newName);
         localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
         localStorage.setItem('userData', JSON.stringify(userData));
 };
@@ -51,6 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         changeUsername(currentUser, newUsername);
         form.reset();
-        window.location.href= './home.html'
+        window.location.href= '../home.html'
     });
 });
