@@ -1,3 +1,16 @@
+logoutUser = () => {
+    const currentUser = sessionStorage.getItem('currentUser');
+
+    if (currentUser) {
+        let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
+        delete activeUsers[currentUser];
+        localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
+    }
+
+    sessionStorage.clear();
+    window.location.href = './index.html';
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const userList = document.getElementById('userList');
     const activeUserList = document.getElementById('activeUserList');
@@ -5,6 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentUser = JSON.stringify(sessionStorage.currentUser);
     let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
     let allUsers = JSON.parse(localStorage.getItem('userData')) || {};
+    
+    let chatData = JSON.parse(localStorage.getItem('chatData')) || {};
+    
+
+
 
     displayActiveUsers = () => {
         activeUserList.innerHTML = '';
@@ -24,33 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    logoutUser = () => {
-        const currentUser = sessionStorage.getItem('currentUser');
-
-        if (currentUser) {
-            let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
-            delete activeUsers[currentUser];
-            localStorage.setItem('activeUsers', JSON.stringify(activeUsers));
-        }
-
-        sessionStorage.clear();
-        window.location.href = '../index.html';
-    }
-
-    document.getElementById('logout').addEventListener('click', function (event) {
-        event.preventDefault();
-        logoutUser();
-    });
-
-
-      displayMessages = () => {
+    displayMessages = () => {
         chatBox.innerHTML = '';
         Object.keys(chatData).forEach(msg => {
-        const div = document.createElement('div');
-        div.className = 'message';
-        div.innerHTML = `<strong>${msg.user}</strong>: ${msg.text} <br><span>${msg.time}</span>`;
-        chatBox.appendChild(div);
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = `<strong>${msg.user}</strong>: ${msg.text} <br><span>${msg.time}</span>`;
+            chatBox.appendChild(div);
         });
         chatBox.scrollTop = chatBox.scrollHeight;
     }

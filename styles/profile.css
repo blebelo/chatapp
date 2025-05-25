@@ -10,7 +10,6 @@ box-sizing: border-box;
 font-family: Sen, sans-serif;
 }
 
-
 main {
     width: 100vw;
     height: 100vh;
@@ -34,16 +33,14 @@ main {
 
 #container div{
     text-align: center;
-
     padding: 1rem;
 }
 
 h2 {
     padding: 0  0 1.5rem 0;
     border-bottom: 1px solid l;
-    color: white;
+    color: #274054;
     text-decoration: 1px underline;
-
 }
 
 #user-box label { 
@@ -79,3 +76,9 @@ transition: transform 0.75s ease,
 cursor: pointer;
 margin: 1rem;
 }
+
+#user-box button:hover {
+    transform: scale(1.1);
+}
+
+

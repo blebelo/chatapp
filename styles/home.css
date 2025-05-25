@@ -74,11 +74,11 @@ header nav img:hover{
     forced-color-adjust: #3c87d7;
 }
 
-/* Body Section */
-/* body{
-    height: 10vh;
-} */
+header nav div{
+    padding: 2rem;
+}
 
+/* Body Section */
 main {
     display: flex;
     margin-bottom: auto;
@@ -86,13 +86,15 @@ main {
 }
 
 main section{
-     overflow-y: hidden
+    overflow-x: hidden;
+     overflow-y: hidden;
 }
 
 /* Users section */
 #users,
 #chats,
-#chat-box {
+#chat-box { 
+    min-width: 15rem;
     background-color: #BECEDA;
     border-radius: 8px;
     padding: 1rem;

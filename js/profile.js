@@ -28,7 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUser = sessionStorage.getItem('currentUser');
     document.getElementById('newUsername').placeholder = currentUser;
     
-    
+    document.getElementById('currentUsername')
+    .textContent = userData[currentUser].name + ', ' + userData[currentUser].age;
+
+
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
         
@@ -48,6 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         changeUsername(currentUser, newUsername);
         form.reset();
-
+        window.location.href= './home.html'
     });
 });
