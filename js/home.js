@@ -1,13 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const userList = document.getElementById('userList');
     const activeUserList = document.getElementById('activeUserList');
     
-    let currentUser = JSON.stringify(sessionStorage.currentUser);
+    let currentUser = sessionStorage.getItem('currentUser');
     let activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || {};
     let allUsers = JSON.parse(localStorage.getItem('userData')) || {};
-    
-    let chatData = JSON.parse(localStorage.getItem('chatData')) || {};
     
     
     document.getElementById('logout').addEventListener('click', function (event) {
@@ -30,58 +27,110 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const displayActiveUsers = () => {
         activeUserList.innerHTML = '';
-        Object.values(activeUsers).forEach((user) => {
-            let li = document.createElement('li');
-            li.textContent = user ; 
+
+        Object.entries(activeUsers).forEach(([username, displayName]) => {
+            const li = document.createElement('li');
+            li.textContent = displayName;
+            li.dataset.username = username;
+
+            li.addEventListener('click', () => {
+                currentChatPartner = username;
+                sessionStorage.setItem('currentChatPartner', username);
+                loadPrivateChat(currentUser, currentChatPartner);
+                document.querySelector('#chats h2').textContent = activeUsers[username];               
+            });
+
             activeUserList.appendChild(li);
         });
-    }
+    };
 
     const displayAllUsers = () => {
         userList.innerHTML = '';
-        Object.values(allUsers).forEach((user) => {
-            let li = document.createElement('li');
-            li.textContent = user.name; 
+
+        Object.entries(allUsers).forEach(([username, user]) => {
+            const li = document.createElement('li');
+            li.textContent = user.name;
+            li.dataset.username = username;
+
+            li.addEventListener('click', () => {
+                currentChatPartner = username;
+                sessionStorage.setItem('currentChatPartner', username);
+                loadPrivateChat(currentUser, currentChatPartner);
+                document.querySelector('#chats h2').textContent = user.name;
+            });
+
             userList.appendChild(li);
         });
+    };
+
+    const createGroup = (groupName, selectedMembers) => {
+        const groupId = `group_${Date.now()}`;
+        const newGroup = {
+            name: groupName,
+            members: selectedMembers,
+            messages: [],
+            typing: []
+        };
+
+        const existingGroups = JSON.parse(localStorage.getItem('groupChats')) || {};
+        existingGroups[groupId] = newGroup;
+        localStorage.setItem('groupChats', JSON.stringify(existingGroups));
+
+        displayGroupChats();
     }
 
-    // const displayMessages = () => {
-    //     chatBox.innerHTML = '';
-    //     Object.keys(chatData).forEach(msg => {
-    //         const div = document.createElement('div');
-    //         div.className = 'message';
-    //         div.innerHTML = `<strong>${msg.user}</strong>: ${msg.text} <br><span>${msg.time}</span>`;
-    //         chatBox.appendChild(div);
-    //     });
-    //     chatBox.scrollTop = chatBox.scrollHeight;
-    // }
+    const formattedTime = () => {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        return `${hours}h${minutes}`;    
+    }
+
+    const loadPrivateChat = (currentUser, chatPartner) => {
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML = '';
+
+        const chatKey = [currentUser, chatPartner].sort().join(':');
+        let chatData = JSON.parse(localStorage.getItem('chatData')) || {};
+        let messages = chatData[chatKey] || [];
+
+
+        messages.forEach((msg) => {
+            const p = document.createElement('p');
+            p.textContent = `${msg.sender}: ${msg.message} @${msg.timetamp}`;
+            chatBox.appendChild(p);
+        });
+    };
     
-    // sendMessage = () => {
-    //     const text = messageInput.value.trim();
-    //     if (!text) return;
+    document.getElementById('sendButton').addEventListener('click', () => {
+        const input = document.getElementById('messageInput');
+        const messageText = input.value.trim();
+        if (messageText === '') return;
 
-    //     const newMessage = {
-    //         user: currentUser,
-    //         text,
-    //         time: new Date().toLocaleTimeString()
-    //     };
+        const chatKey = [currentUser, currentChatPartner].sort().join(':');
 
-    //     chatData.push(newMessage);
-    //     localStorage.setItem('chatData', JSON.stringify(chatData));
-    //     messageInput.value = '';
-    //     displayMessages();
-    // }
+        let chatData = JSON.parse(localStorage.getItem('chatData')) || {};
+        
+        if (!chatData[chatKey]) chatData[chatKey] = [];
+
+        chatData[chatKey].push({
+            sender: currentUser,
+            message: messageText,
+            timetamp: formattedTime()
+        });
+
+        localStorage.setItem('chatData', JSON.stringify(chatData));
+
+        input.value = '';
+        loadPrivateChat(currentUser, currentChatPartner);
+    });
 
 
     window.addEventListener('storage', () => {
-        chatData = JSON.parse(localStorage.getItem('chatData')) || [];
-        activeUsers = JSON.parse(localStorage.getItem('activeUsers')) || [];
-        // displayMessages();
+        loadPrivateChat(currentUser, currentChatPartner)        
         displayAllUsers();
         displayActiveUsers();
     });
-    // displayMessages();
     displayAllUsers();
     displayActiveUsers();
 })
