@@ -124,6 +124,10 @@ margin: 1rem;
     #user-box button {
         margin-top: 1rem;
     }
+
+    img {
+        max-width: 90%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -147,5 +151,9 @@ margin: 1rem;
     #user-box button {
         font-size: 1rem;
         padding: 0.6rem 1rem;
+    }
+
+    img {
+        max-width: 100%;
     }
 }
