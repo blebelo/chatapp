@@ -154,6 +154,9 @@ section h2 {
 #users li {
     list-style: none;
     padding: 0.2rem;
+    cursor: pointer;
+    color: #55758d;
+    transition: all 0.75s ease-in-out;
 }
 
 /* Chat Box */
