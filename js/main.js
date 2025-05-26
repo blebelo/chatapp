@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded',() => {
 
         alert('User registered sucessfully.');
         form.reset();
+        goToLogin()
     });
 });
 
@@ -90,7 +91,7 @@ document.getElementById('show-login').addEventListener('click', () => {
     document.getElementById('login').style.display = 'flex';
   });
 
-document.getElementById('register').addEventListener('click', () => {
+const goToLogin = () => {
     document.getElementById('signup').style.display = 'none';
     document.getElementById('login').style.display = 'flex';
-  });
+  };

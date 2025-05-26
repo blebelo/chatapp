@@ -17,6 +17,10 @@ main {
     justify-content: center;
 }
 
+#exit {
+    color: rgba(110, 140, 164, 0.25);
+}
+
 #user-box {
     align-content: center;
     text-align: center;
