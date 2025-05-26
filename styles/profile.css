@@ -17,8 +17,9 @@ main {
     justify-content: center;
 }
 
-#exit {
+#exit a{
     color: rgba(110, 140, 164, 0.25);
+    text-decoration: none;
 }
 
 #user-box {
